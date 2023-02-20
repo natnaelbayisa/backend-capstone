@@ -1,6 +1,7 @@
 # from django.http import HttpResponse
 from django.shortcuts import render
 from .forms import BookingForm
+from .forms import RegistrationForm
 from .models import Menu
 
 
@@ -20,6 +21,15 @@ def book(request):
             form.save()
     context = {'form':form}
     return render(request, 'book.html', context)
+
+def createUser(request):
+    form =  RegistrationForm()
+    if request.method == "POST":
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+    context = {'form': form}
+    return render(request, "signin.html", context)
 
 
 #Menu Function
